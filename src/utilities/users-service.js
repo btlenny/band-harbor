@@ -5,9 +5,16 @@
 
 import * as usersAPI from './users-api';
 
-
 export async function signUp(userData) {
   const token = await usersAPI.signUp(userData);
+  localStorage.setItem('token', token);
+  return getUser();
+}
+
+export async function login(credentials) {
+  // Delegate the AJAX request to the users-api.js
+  // module.
+  const token = await usersAPI.login(credentials);
   localStorage.setItem('token', token);
   return getUser();
 }
@@ -35,17 +42,7 @@ export function getUser() {
   return token ? JSON.parse(atob(token.split('.')[1])).user : null;
 }
 
-export const login = async (credentials) => {
-  try {
-    const user = await login(credentials);
-    // Optionally, you might store the user token or other information in local storage or state.
-    return user;
-  } catch (error) {
-    // Handle errors or rethrow them as needed
-    throw error;
-  }
-};
-
 export function checkToken() {
-  alert('clicked')
+  return usersAPI.checkToken()
+    .then(dateStr => new Date(dateStr));
 }

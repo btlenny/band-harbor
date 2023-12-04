@@ -1,5 +1,10 @@
+import NewBandForm from "../../components/NewBandForm/NewBandForm";
+
 export default function NewOrderPage() {
   return (
-    <h1>NewOrderPage</h1>
+    <>
+    <h1>NewBandPage</h1>
+    <NewBandForm />
+    </>
   );
 }

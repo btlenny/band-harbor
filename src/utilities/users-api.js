@@ -2,7 +2,7 @@
 import sendRequest from './send-request';
 
 const BASE_URL = '/api/users';
-
+export default BASE_URL;
 // Refactored code below
 export function signUp(userData) {
   return sendRequest(BASE_URL, 'POST', userData);

@@ -5,9 +5,10 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 const navigation = [
   { name: 'Bands', href: '/bands', current: false },
   { name: 'New Band', href: '/bands/new', current: false },
+  { name: 'Account', href: '/', current: false},
+  { name: 'Spotify', href: '/spotify', current: false},
   { name: 'Log Out', href: '/logout', current: false},
-  { name: 'Log In', href: '/login', current: false },
-  { name: 'Sign Up', href: '/signup', current: false },
+
  
 ]
 
@@ -17,7 +18,7 @@ function classNames(...classes) {
 
 export default function Example() {
   return (
-    <Disclosure as="nav" className="bg-sky-500">
+    <Disclosure as="nav" className="bg-gradient-to-r from-cyan-500 to-blue-500">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
