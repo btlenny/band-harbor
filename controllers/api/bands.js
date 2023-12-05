@@ -1,32 +1,18 @@
 const Band = require('../../models/band');
 
 module.exports = {
-    new: newBand,
-    create,
-    index,
-  };
-  
-  function newBand(req, res) {
-    res.render("bands/new", { errorMsg: "" });
-  }
-    
-  async function create(req, res) {
-    console.log("Route accessed");
-    console.log("Submitted Brand:", req.body.name);
-    console.log("Submitted Model:", req.body.genre);
-  
+    addNewBand,
+};
+
+async function addNewBand(req, res) {
     try {
-      await Band.create(req.body);
-      res.redirect("/bands");
-    } catch (err) {
-      console.log('Error:', err);
-      res.render("bands/new", { errorMsg: "An error occurred." });
+        const band = await Band.create(req.body);
+        res.json(band);
     }
-  }
-  
-  async function index(req, res) {
-    const bands = await Band.find({}).exec();
-    res.render("bands", { bands });
-  }
-  
-  
+    catch (err) {
+        console.log(err);
+        res.status(400).json(err);
+    }
+}
+
+

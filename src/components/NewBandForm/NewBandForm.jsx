@@ -1,71 +1,38 @@
-import React, { Component } from 'react';
-import { checkToken } from '../../utilities/users-service';
-import { addBand } from '../../utilities/bands-api'; // Update the path
+import React, { useState } from 'react';
+import axios from 'axios';
+import { createBand } from '../../utilities/bands-api';
 
-class BandForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      bandName: '',
-      genre: '',
-      message: '',
-    };
+const BandForm = () => {
+  const [name, setName] = useState('');
+  const [genre, setGenre] = useState('');
 
-    // Bind the methods to the instance
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    // Log the values before making the request
+    console.log('Name:', name);
+    console.log('Genre:', genre);
 
-  handleChange(event) {
-    // Update the state based on the user's input
-    this.setState({ [event.target.name]: event.target.value });
-  }
+    const response = await createBand({name, genre});
+    console.log(response);
+    
+  }; // <-- Closing brace for handleSubmit
 
-  async handleSubmit(event) {
-    event.preventDefault();
-
-    // Destructure the state
-    const { bandName, genre } = this.state;
-
-    try {
-      console.log('Band Name:', bandName);
-      console.log('Genre:', genre);
-
-      // Get the auth token (you might want to handle this more globally)
-      const authToken = await checkToken();
-
-      // Make the API request using the addBand function
-      const newBand = await addBand({ band: bandName, genre: genre }, authToken);
-
-      // Handle the response as needed
-      console.log('Response:', newBand);
-
-      // Clear form fields on successful submission
-      this.setState({ bandName: '', genre: '' });
-    } catch (error) {
-      console.error('Error:', error.message);
-      // Handle the error, e.g., display an error message to the user
-      this.setState({ message: 'Some error occurred' });
-    }
-  }
-
-  render() {
-    const { bandName, genre } = this.state;
-
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Band Name:
-          <input type="text" name="bandName" value={bandName} onChange={this.handleChange} />
-        </label>
-        <label>
-          Genre:
-          <input type="text" name="genre" value={genre} onChange={this.handleChange} />
-        </label>
-        <button type="submit">Add Band</button>
-      </form>
-    );
-  }
-}
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>
+        Band Name:
+        <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+      </label>
+      <br />
+      <label>
+        Genre:
+        <input type="text" value={genre} onChange={(e) => setGenre(e.target.value)} />
+      </label>
+      <br />
+      <button type="submit">Create Band</button>
+    </form>
+  );
+};
 
 export default BandForm;

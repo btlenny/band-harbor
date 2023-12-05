@@ -2,12 +2,12 @@ import { Fragment } from 'react'
 import { Disclosure, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
+
 const navigation = [
   { name: 'Bands', href: '/bands', current: false },
   { name: 'New Band', href: '/bands/new', current: false },
-  { name: 'Account', href: '/', current: false},
   { name: 'Spotify', href: '/spotify', current: false},
-  { name: 'Log Out', href: '/logout', current: false},
+  { name: 'Log Out', href: '/', current: false},
 
  
 ]

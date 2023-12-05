@@ -9,6 +9,8 @@ import NavBar from '../../components/NavBar/NavBar';
 import Spotify from '../Spotify/Spotify'
 
 
+
+
 export default function App() {
   const [user, setUser] = useState(getUser());
 
@@ -22,6 +24,7 @@ export default function App() {
             <Route path="/bands" element={<BandsListPage />} />
             <Route path="/" element={<AuthPage setUser={setUser}/>} />
             <Route path="/spotify" element={<Spotify />} />
+        
           </Routes>
         </>
       ) : (

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import sendRequest from './send-request';
 
 const API_URL = '/bands';
 
@@ -20,4 +21,8 @@ const addBand = async (bandData, authToken) => {
 
 // Other band-related functions...
 
-export { addBand };
+
+
+export function createBand(bandData) {
+  return sendRequest('/api/bands', 'POST', bandData);
+}

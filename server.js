@@ -24,7 +24,7 @@ app.use(require('./config/checkToken'));
 const port = process.env.PORT || 3001;
 
 const ensureLoggedIn = require('./config/ensureLoggedIn');
-app.use('/bands', ensureLoggedIn, require('./routes/api/bandsRoute'));
+app.use('/api/bands', ensureLoggedIn, require('./routes/api/bandsRoute'));
 app.use('/api/users', require('./routes/api/users'));
 
 console.log("Middleware registered for /bands route...");
