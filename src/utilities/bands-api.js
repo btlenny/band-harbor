@@ -28,3 +28,8 @@ export function createBand(bandData) {
 export function getAllBands() {
   return sendRequest('/api/bands', 'GET');
 }
+
+export function getBandById(id) {
+  return sendRequest(`/api/bands/${id}`, 'GET');
+}
+

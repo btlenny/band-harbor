@@ -7,6 +7,7 @@ import NewBandPage from '../NewBandPage/NewBandPage';
 import BandsListPage from '../BandsListPage/BandsListPage';
 import NavBar from '../../components/NavBar/NavBar';
 import Spotify from '../Spotify/Spotify';
+import BandDetailPage from '../BandsDetailPage/BandsDetailPage';
 
 export default function App() {
   const [user, setUser] = useState(getUser());
@@ -36,6 +37,8 @@ export default function App() {
               element={<AuthPage setUser={setUser} />}
             />
             <Route path="/spotify" element={<Spotify />} />
+            <Route path="/bands/:bandId" element={<BandDetailPage />} />
+
           </Routes>
         </>
       ) : (
