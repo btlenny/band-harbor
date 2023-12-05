@@ -21,8 +21,10 @@ const addBand = async (bandData, authToken) => {
 
 // Other band-related functions...
 
-
-
 export function createBand(bandData) {
   return sendRequest('/api/bands', 'POST', bandData);
+}
+
+export function getAllBands() {
+  return sendRequest('/api/bands', 'GET');
 }
