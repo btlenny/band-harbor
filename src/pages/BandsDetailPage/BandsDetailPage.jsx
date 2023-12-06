@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import {
   createComment,
-  getCommentById,
   getAllComments,
   updateComment,
   deleteComment,
 } from '../../utilities/comments-api';
-import {getBandById} from '../../utilities/bands-api';
-import { useParams } from 'react-router-dom';
+import { getBandById } from '../../utilities/bands-api';
+import { useParams, useNavigate } from 'react-router-dom';
 
-const BandDetailPage = () => {
+
+const BandDetailPage = ({onCreateComment}) => {
+  const navigate = useNavigate();
   const { bandId } = useParams();
   const [band, setBand] = useState(null);
-  const [commentText, setCommentText] = useState('');
+  const [comment, setComment] = useState('');
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
@@ -28,7 +29,7 @@ const BandDetailPage = () => {
 
     const fetchBandComments = async () => {
       try {
-        const bandComments = await getCommentById(bandId);
+        const bandComments = await getAllComments(bandId);
         setComments(bandComments);
         console.log('Fetched band comments:', bandComments);
       } catch (error) {
@@ -43,17 +44,27 @@ const BandDetailPage = () => {
 
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
-
+  
+    console.log('bandId:', bandId);
+    console.log('comment:', comment);
+  
+    const commentData = { comment };
+  
     try {
-      // Call the addComment function with the bandId and commentText
-      await createComment(bandId, commentText);
+      const response = await createComment(bandId, commentData);
+  
+      console.log('Raw Response:', response); // Log the raw response
+  
+      // Assuming the data is directly in response (replace 'data' with the correct property)
+      if (response.success) {
+        console.log('Comment added successfully:', response.data);
+        onCreateComment(response.data);
+        navigate(`/bands/${bandId}`);
 
-      // After adding the comment, you may want to refetch the comments
-      // or update the state directly without making an additional API call
-      // Example:
-      // setComments((prevComments) => [...prevComments, { text: commentText }]);
-      setCommentText(''); // Clear the comment input field
-      alert('Comment added successfully!');
+      } else {
+        console.error('Error adding comment. Server response:', response);
+        alert('Error adding comment. Please try again.');
+      }
     } catch (error) {
       console.error('Error adding comment:', error);
       alert('Error adding comment. Please try again.');
@@ -63,7 +74,6 @@ const BandDetailPage = () => {
   const handleUpdateComment = async (commentId, newText) => {
     try {
       await updateComment(commentId, newText);
-      // Assuming the API call is successful, update the local state
       setComments((prevComments) =>
         prevComments.map((comment) =>
           comment._id === commentId ? { ...comment, text: newText } : comment
@@ -79,7 +89,6 @@ const BandDetailPage = () => {
   const handleDeleteComment = async (commentId) => {
     try {
       await deleteComment(commentId);
-      // Assuming the API call is successful, update the local state
       setComments((prevComments) =>
         prevComments.filter((comment) => comment._id !== commentId)
       );
@@ -90,55 +99,62 @@ const BandDetailPage = () => {
     }
   };
 
+  const canEditOrDelete = (comment) => {
+    // Replace 'user123' with the actual user ID or some authentication logic
+    return comment.userId === 'user123';
+  };
+
   if (!band) {
-    return <div>Loading...</div>; // You can show a loading indicator while fetching data
+    return <div>Loading...</div>;
   }
 
   return (
     <div>
       <h1>{band.name}</h1>
       <p>{band.genre}</p>
-      {/* Add more details as needed */}
 
-      {/* Comment Form */}
       <form onSubmit={handleCommentSubmit}>
         <label>
           Add your recommendation:
           <input
             type="text"
-            value={commentText}
-            onChange={(e) => setCommentText(e.target.value)}
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
           />
         </label>
         <button type="submit">Add Comment</button>
       </form>
 
-      {/* List of Comments */}
       <div>
         <h2>Recommendations</h2>
         <ul>
-          {comments.map((comment) => (
+        {comments.filter(comment => comment !== null).map((comment) => (
+
             <li key={comment._id}>
               {comment.text}{' '}
-              <button
-                onClick={() => {
-                  const newText = prompt('Enter new text:', comment.text);
-                  if (newText !== null) {
-                    handleUpdateComment(comment._id, newText);
-                  }
-                }}
-              >
-                Update
-              </button>{' '}
-              <button
-                onClick={() => {
-                  if (window.confirm('Are you sure you want to delete this comment?')) {
-                    handleDeleteComment(comment._id);
-                  }
-                }}
-              >
-                Delete
-              </button>
+              {canEditOrDelete(comment) && (
+                <>
+                  <button
+                    onClick={() => {
+                      const newText = prompt('Enter new text:', comment.text);
+                      if (newText !== null) {
+                        handleUpdateComment(comment._id, newText);
+                      }
+                    }}
+                  >
+                    Update
+                  </button>{' '}
+                  <button
+                    onClick={() => {
+                      if (window.confirm('Are you sure you want to delete this comment?')) {
+                        handleDeleteComment(comment._id);
+                      }
+                    }}
+                  >
+                    Delete
+                  </button>
+                </>
+              )}
             </li>
           ))}
         </ul>

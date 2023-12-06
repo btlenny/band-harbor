@@ -9,7 +9,6 @@ export default function NewOrderPage() {
 
   return (
     <>
-      <h1>NewBandPage</h1>
       <NewBandForm onCreateBand={handleCreateBand} />
     </>
   );

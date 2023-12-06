@@ -21,8 +21,7 @@ const BandsListPage = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Bands List</h1>
+    <div className="container mx-auto p-4"> {/* Add padding here */}
       <ul role="list" className="divide-y divide-gray-100">
         {bands.map((band) => (
           <li key={band._id} className="flex justify-between gap-x-6 py-5">
