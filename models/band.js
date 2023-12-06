@@ -13,7 +13,7 @@ const bandSchema = new Schema({
     type: String, 
     required: true 
   },
-  genre: { 
+  album: { 
     type: String 
   },
   photoUrl: {  // Update the field name from imageUrl to photoUrl
