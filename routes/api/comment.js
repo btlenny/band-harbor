@@ -5,8 +5,8 @@ const commentsController = require('../../controllers/api/comments');
 
 router.get('/:id/comments', ensureLoggedIn, commentsController.getAllComments);
 router.post('/:id/comments', ensureLoggedIn, commentsController.addNewComment);
-router.delete('/:id/comments/:id', ensureLoggedIn, commentsController.deleteOneComment);
-router.put('/:id/comments/:id', ensureLoggedIn, commentsController.updateOneComment);
+router.delete('/:id/comments/:id', ensureLoggedIn, commentsController.deleteComment);
+router.put('/:id/comments/:id', ensureLoggedIn, commentsController.updateComment);
 
 
 

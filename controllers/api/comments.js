@@ -4,8 +4,8 @@ const Band = require('../../models/band');
 module.exports = {
     addNewComment,
     getAllComments,
-    deleteOneComment,
-    updateOneComment
+    deleteComment,
+    updateComment
 };
 
 async function addNewComment(req, res) {
@@ -49,7 +49,7 @@ async function getAllComments(req, res) {
     }
 }
 
-async function deleteOneComment(req, res) {
+async function deleteComment(req, res) {
     try {
         const bandId = req.params.id;
         const band = await Band.findById(bandId);
@@ -69,33 +69,38 @@ async function deleteOneComment(req, res) {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 }
-async function updateOneComment(req, res) {
+
+async function updateComment(req, res) {
     try {
-        const bandId = req.params.id;
-        const band = await Band.findById(bandId);
-        console.log('Band:', band);
-        if (!band) {
-            return res.status(404).json({ error: 'Band not found' });
-        }
-
-        const newText = req.body.text; // Assuming you send the new text in the request body
-        const commentText = req.params.commentText;
-
-        // Find the comment based on its text
-        const comment = band.comments.find(comment => comment.text === commentText);
-
-        if (!comment) {
-            return res.status(404).json({ error: 'Comment not found' });
-        }
-
-        // Update the comment text
-        comment.text = newText;
-
-        await band.save();
-
-        res.json(comment);
+      const bandId = req.params.id;
+      const band = await Band.findById(bandId);
+  
+      if (!band) {
+        return res.status(404).json({ error: 'Band not found' });
+      }
+  
+      const newText = req.body.text;
+      const commentText = req.params.commentText;
+  
+      if (!newText) {
+        return res.status(400).json({ error: 'New text is required for the update' });
+      }
+  
+      // Find the comment based on its text
+      const comment = band.comments.find(comment => comment.text === commentText);
+  
+      if (!comment) {
+        return res.status(404).json({ error: 'Comment not found' });
+      }
+  
+      // Update the comment text
+      comment.text = newText;
+  
+      await band.save();
+  
+      res.json(comment);
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Internal Server Error' });
+      console.error(err);
+      res.status(500).json({ error: 'Internal Server Error' });
     }
-}
+  }

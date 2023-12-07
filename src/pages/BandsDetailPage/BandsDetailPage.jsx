@@ -7,6 +7,7 @@ import {
 } from '../../utilities/comments-api';
 import { getBandById } from '../../utilities/bands-api';
 import { useParams, useNavigate } from 'react-router-dom';
+import BandRec from '../../components/BandRec/BandRec';
 
 const BandDetailPage = ({ onCreateComment }) => {
   const navigate = useNavigate();
@@ -60,22 +61,32 @@ const BandDetailPage = ({ onCreateComment }) => {
       alert('Error adding comment. Please try again.');
     }
   };
-
-  const handleUpdateComment = async (bandId, commentId, newText) => {
-      try {
-          await updateComment(bandId, commentId, { text: newText });
-          setComments((prevComments) =>
-              prevComments.map((comment) =>
-                  comment._id === commentId ? { ...comment, text: newText } : comment
-              )
-          );
-          alert('Comment updated successfully!');
-      } catch (error) {
-          console.error('Error updating comment:', error.response ? error.response.data : error);
-          alert('Error updating comment. Please try again.');
-      }
+  
+  const handleUpdateComment = async (bandId, commentText, newText) => {
+    try {
+      console.log('Updating comment...');
+      
+      console.log('bandId:', bandId);
+      console.log('commentText:', commentText); // Corrected variable name
+      console.log('newText:', newText);
+  
+      const response = await updateComment(bandId, commentText, { text: newText }); // Corrected parameter
+      console.log('Update Comment Response:', response);
+  
+      setComments((prevComments) =>
+        prevComments.map((comment) =>
+          comment._id === commentText ? { ...comment, text: newText } : comment
+        )
+      );
+  
+      console.log('Comment updated successfully!');
+      alert('Comment updated successfully!');
+    } catch (error) {
+      console.error('Error updating comment:', error.response ? error.response.data : error);
+      alert('Error updating comment. Please try again.');
+    }
   };
-
+  
 
   const handleDeleteComment = async (commentId) => {
     try {
@@ -95,84 +106,57 @@ const BandDetailPage = ({ onCreateComment }) => {
   }
 
   return (
-    <div className="text-center pt-8">
-      <div className="flex items-center justify-center">
-        <img
-          className="h-48 w-48 mr-4 object-cover"
-          src={band.photoUrl}
-          alt={`${band.name} Cover`}
-        />
-        <div>
-          <h1 className="text-2xl font-bold">{band.name}</h1>
-          <p>{band.album}</p>
-        </div>
+<div className="text-center pt-8">
+  <div className="flex justify-between p-4">
+    {/* Band Info Section */}
+    <div className="flex items-center p-4">
+      <img
+        className="h-48 w-48 mr-4 object-cover"
+        src={band.photoUrl}
+        alt={`${band.name} Cover`}
+      />
+      <div>
+        <h1 className="text-2xl font-bold">{band.name}</h1>
+        <p>{band.album}</p>
       </div>
-      <br></br>
-      <form
-        onSubmit={handleCommentSubmit}
-        className="max-w-sm mx-auto p-4 space-y-4 bg-sky-50 rounded-lg shadow-md"
-      >
-        <div className="border-b border-gray-900/10 pb-8">
-          <div className="mt-6">
-            <div className="mt-2">
-              <input
-                type="text"
-                id="comment"
-                name="comment"
-                autoComplete="off"
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-                className="block w-full h-16 rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-lg"
-              />
-            </div>
+    </div>
+
+    {/* Add Recommendation Form Section */}
+    <form
+      onSubmit={handleCommentSubmit}
+      className="max-w-md w-full p-4 space-y-4 bg-sky-50 rounded-lg shadow-md"
+    >
+      <div className="border-b border-gray-900/10 pb-8">
+        <div className="mt-6">
+          <div className="mt-2">
+            <input
+              type="text"
+              id="comment"
+              name="comment"
+              autoComplete="off"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              className="block w-full h-16 rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-lg"
+            />
           </div>
         </div>
-
-        {/* If you want to add more fields, you can follow a similar structure */}
-        <div className="mt-6 flex items-center justify-end gap-x-6">
-          <button
-            type="submit"
-            className="rounded-md bg-sky-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Add Recommendation
-          </button>
-        </div>
-      </form>
-      <div>
-        <br />
-        <h2>Recommendations</h2>
-        <div className="grid grid-cols-2 gap-4">
-          {console.log('Comments:', comments)}
-          {comments.map((comment) => (
-            <div key={comment._id} className="comment-container p-4 border rounded">
-              {comment.comment}
-              <div className="mt-2 text-right">
-      <button
-        onClick={() => {
-          const newText = prompt('Enter new text:', comment.text);
-          if (newText !== null) {
-            handleUpdateComment(comment._id, newText); // Pass comment._id here
-          }
-        }}
-        className="text-sm text-blue-500 hover:underline cursor-pointer"
-      >
-        Update
-      </button>
-      <button
-        onClick={() => {
-          if (window.confirm('Are you sure you want to delete this comment?')) {
-            handleDeleteComment(comment._id); // Pass comment._id here
-          }
-        }}
-        className="text-sm text-red-500 hover:underline cursor-pointer ml-2"
-      >
-        Delete
-      </button>
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
+
+      <div className="mt-6">
+        <button
+          type="submit"
+          className="rounded-md bg-sky-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        >
+          Add Recommendation
+        </button>
+      </div>
+    </form>
+    </div>
+
+<BandRec comments={comments} updateComment={handleUpdateComment} deleteComment={handleDeleteComment}/>
+{/* 
+ */}
+
     </div>
   );
 };
