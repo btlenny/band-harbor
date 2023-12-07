@@ -78,8 +78,7 @@ const BandDetailPage = ({ onCreateComment }) => {
         )
       );
   
-      console.log('Comment updated successfully!');
-      alert('Comment updated successfully!');
+    
     } catch (error) {
       console.error('Error updating comment:', error.response ? error.response.data : error);
       alert('Error updating comment. Please try again.');
@@ -105,57 +104,52 @@ const BandDetailPage = ({ onCreateComment }) => {
   }
 
   return (
-<div className="text-center pt-8">
-  <div className="flex justify-between p-4">
-    {/* Band Info Section */}
-    <div className="flex items-center p-4">
-      <img
-        className="h-48 w-48 mr-4 object-cover"
-        src={band.photoUrl}
-        alt={`${band.name} Cover`}
-      />
-      <div>
-        <h1 className="text-2xl font-bold">{band.name}</h1>
-        <p>{band.album}</p>
-      </div>
-    </div>
+    <div className="text-center pt-8">
+      <div className="flex justify-between p-4">
 
-    {/* Add Recommendation Form Section */}
-    <form
-      onSubmit={handleCommentSubmit}
-      className="max-w-md w-full p-4 space-y-4 bg-sky-50 rounded-lg shadow-md"
-    >
-      <div className="border-b border-gray-900/10 pb-8">
-        <div className="mt-6">
-          <div className="mt-2">
-            <input
-              type="text"
-              id="comment"
-              name="comment"
-              autoComplete="off"
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-              className="block w-full h-16 rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-lg"
-            />
+        {/* Band Info Section */}
+        <div className="mx-auto p-4">
+          <img
+            className="h-48 sm:h-64 md:h-80 lg:h-96 w-full object-cover"
+            src={band.photoUrl}
+            alt={`${band.name} Cover`}
+          />
+          <div>
+            <h1 className="text-2xl font-bold mb-2">{band.name}</h1>
+            <p className="mb-4">{band.album}</p>
           </div>
+        </div>
+
+        {/* Add Recommendation Form Section */}
+        <div className="mx-auto p-10">
+        <form
+            onSubmit={handleCommentSubmit}
+              className="w-full max-w-xl p-4 space-y-4"
+                >
+  <div className="flex items-center border-b border-teal-500 py-2">
+    <input
+      type="text"
+      id="comment"
+      name="comment"
+      autoComplete="off"
+      value={comment}
+      onChange={(e) => setComment(e.target.value)}
+      className="appearance-none bg-transparent border-none w-full h-12 text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+      placeholder="Share your recs here"
+      aria-label="Full name"
+    />
+    <button
+      type="submit"
+      className="flex-shrink-0 bg-sky-500 hover:bg-indigo-500 border-sky-500 hover:border-indigo-500 text-sm border-4 text-white py-1 px-2 rounded"
+    >
+      Add Recommendation
+    </button>
+  </div>
+</form>
         </div>
       </div>
 
-      <div className="mt-6">
-        <button
-          type="submit"
-          className="rounded-md bg-sky-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-        >
-          Add Recommendation
-        </button>
-      </div>
-    </form>
-    </div>
-
-<BandRec comments={comments} updateComment={handleUpdateComment} deleteComment={handleDeleteComment}/>
-{/* 
- */}
-
+      <BandRec comments={comments} updateComment={handleUpdateComment} deleteComment={handleDeleteComment} />
     </div>
   );
 };
