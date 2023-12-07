@@ -61,21 +61,20 @@ const BandDetailPage = ({ onCreateComment }) => {
       alert('Error adding comment. Please try again.');
     }
   };
-  
-  const handleUpdateComment = async (bandId, commentText, newText) => {
+
+  const handleUpdateComment = async (commentId, newText) => {
     try {
       console.log('Updating comment...');
       
-      console.log('bandId:', bandId);
-      console.log('commentText:', commentText); // Corrected variable name
+      console.log('commentId:', commentId);
       console.log('newText:', newText);
   
-      const response = await updateComment(bandId, commentText, { text: newText }); // Corrected parameter
+      const response = await updateComment(commentId, { text: newText }); // Corrected parameter
       console.log('Update Comment Response:', response);
   
       setComments((prevComments) =>
         prevComments.map((comment) =>
-          comment._id === commentText ? { ...comment, text: newText } : comment
+          comment._id === commentId ? { ...comment, comment: newText } : comment
         )
       );
   

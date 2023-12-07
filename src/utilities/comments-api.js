@@ -19,10 +19,10 @@ export function getAllComments(bandId) {
 
 
 
-export function deleteComment(bandId, commentId) {
-    return sendRequest(`${API_URL}/${bandId}/comments/${commentId}`, 'DELETE');
+export function deleteComment(commentId, commentData) {
+    return sendRequest(`${API_URL}/comments/${commentId}`, 'DELETE', commentData);
 }
 
-export function updateComment(bandId, commentId, commentData) {
-    return sendRequest(`${API_URL}/${bandId}/comments/${commentId}`, 'PUT', commentData);
+export function updateComment( commentId, commentData) {
+    return sendRequest(`${API_URL}/comments/${commentId}`, 'PUT', commentData);
 }
