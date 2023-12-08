@@ -21,9 +21,9 @@ const BandForm = ({}) => {
       className="max-w-3xl mx-auto p-8 pt-8 mt-16 space-y-8 bg-sky-50 rounded-lg shadow-md"
     >
       <div className="border-b border-gray-900/10 pb-12">
-        <h2 className="text-base font-semibold leading-7 text-gray-900">
-          Band Information
-        </h2>
+        <h1 className="text-base font-semibold leading-7 text-sky-900">
+          Create a Band to Start Getting Recommendations! 🎸
+        </h1>
         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
           <div className="sm:col-span-4">
             <label
