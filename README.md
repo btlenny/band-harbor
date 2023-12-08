@@ -21,6 +21,8 @@ Band Harbor is your hub for discovering and sharing bands. Whether you're into r
 ![Adobe Illustrator](https://img.shields.io/badge/adobe%20illustrator-%23FF9A00.svg?style=for-the-badge&logo=adobe%20illustrator&logoColor=white)
 
 # Getting Started
+Link to live build: https://band-harbor-a76d86f7b8bf.herokuapp.com/
+
 1. Start by creating a account
 2. Log into account after successful account creation
 3. Navigate to "Add Band" and add in your Brand and Model of guitar
