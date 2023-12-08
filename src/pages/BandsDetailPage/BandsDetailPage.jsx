@@ -93,7 +93,7 @@ const BandDetailPage = ({ currentuser }) => {
             <p className="mb-4">{band.album}</p>
           </div>
         </div>
-        <div className="mx-auto p-10 w-3/4">
+        <div className="mx-auto p-10 w-3/4 flex justify-center items-center">
           <form
             onSubmit={handleCommentSubmit}
             className="w-full max-w-xl p-4 space-y-4"

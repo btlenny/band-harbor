@@ -36,6 +36,6 @@ Link to live build: https://band-harbor-a76d86f7b8bf.herokuapp.com/
 # Next Steps
 - My initial intention was to create a site that utilized the Spotify API as its main resource, but was unable to get it to work. Will get that implemented next.
 - Currently users have to input a URL to upload album art, but it would be ideal do setup a database so users can upload a photo
-- Mobile functionality. Currently it's difficult to navigate on mobile
+- Overall functionality, but mobile functionality is lacking. Currently it's difficult to navigate through in a mobile environment and needs pararmeters to make components more dynamic.
 
 
