@@ -66,7 +66,7 @@ export default function RecItem({
           </form>
         ) : (
           <div>
-            <div className="comment-text-box p-7 rounded text-sm text-left">
+            <div className="comment-text-box p-7 rounded italic text-sm text-left">
               {comment.comment}
             </div>
             <div className="text-right  italic text-xs text-gray-500 pr-5">

@@ -15,7 +15,7 @@ const BandDetailPage = ({ currentuser }) => {
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const [commentAdded, setCommentAdded] = useState(false);
-console.log(comments);
+  console.log(comments);
   useEffect(() => {
     const fetchBandDetailsAndComments = async () => {
       try {
@@ -98,7 +98,6 @@ console.log(comments);
     }
   };
 
- 
   if (!band) {
     return <div>Loading...</div>;
   }
@@ -119,13 +118,12 @@ console.log(comments);
           </div>
         </div>
 
-       
-        <div className="mx-auto p-10">
+        <div className="mx-auto p-10 w-3/4">
           <form
             onSubmit={handleCommentSubmit}
             className="w-full max-w-xl p-4 space-y-4"
           >
-            <div className="flex items-center border-b border-teal-500 py-2">
+            <div className="flex items-center border-b border-gray-200 py-2">
               <input
                 type="text"
                 id="comment"
