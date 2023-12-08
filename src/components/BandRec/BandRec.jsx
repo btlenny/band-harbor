@@ -18,7 +18,6 @@ export default function BandRec({
             updateComment={updateComment}
             deleteComment={deleteComment}
             currentuser={currentuser}
-            comments={comments}
           />
         ))}
       </ul>

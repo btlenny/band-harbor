@@ -5,11 +5,11 @@ export default function RecItem({
   updateComment,
   deleteComment,
   currentuser,
-  comments,
 }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedText, setEditedText] = useState(comment.comment);
   const isCurrentUserComment = currentuser._id === comment.user;
+  
   const handleUpdateComment = (commentId, newText) => {
     updateComment(commentId, newText);
     setIsEditing(false);
@@ -49,7 +49,6 @@ export default function RecItem({
               <button
                 type="submit"
                 className="text-sm text-blue-500 hover:underline cursor-pointer"
-                disabled={!isCurrentUserComment} // Disable if not the current user's comment
               >
                 Confirm Update
               </button>

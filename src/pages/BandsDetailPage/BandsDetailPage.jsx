@@ -69,7 +69,6 @@ const BandDetailPage = ({ currentuser }) => {
       setComments((prevComments) =>
         prevComments.filter((comment) => comment._id !== commentId)
       );
-      alert("Comment deleted successfully!");
     } catch (error) {
       console.error("Error deleting comment:", error);
       alert("Error deleting comment. Please try again.");
