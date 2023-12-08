@@ -22,12 +22,10 @@ const bandSchema = new Schema({
   album: { 
     type: String 
   },
-  photoUrl: {  // Update the field name from imageUrl to photoUrl
+  photoUrl: {  
     type: String, 
   },
   comments: [commentSchema],
-
-  // Add more fields as needed
 });
 
 module.exports = mongoose.model("Band", bandSchema);

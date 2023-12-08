@@ -9,9 +9,7 @@ export default function RecItem({
 }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedText, setEditedText] = useState(comment.comment);
-
   const isCurrentUserComment = currentuser._id === comment.user;
-  console.log(isCurrentUserComment);
   const handleUpdateComment = (commentId, newText) => {
     updateComment(commentId, newText);
     setIsEditing(false);

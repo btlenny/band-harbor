@@ -1,25 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { getAllBands } from '../../utilities/bands-api';
-import { Link } from 'react-router-dom';
-import './BandsListPage.css';
-
+import React, { useEffect, useState } from "react";
+import { getAllBands } from "../../utilities/bands-api";
+import { Link } from "react-router-dom";
+import "./BandsListPage.css";
 
 const BandsListPage = () => {
   const [bands, setBands] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const bandsData = await getAllBands();
         setBands(bandsData);
-        console.log('Fetched bands:', bandsData);
       } catch (error) {
-        console.error('Error fetching bands:', error);
+        console.error("Error fetching bands:", error);
       }
     };
-
-    // Fetch bands when the component mounts
     fetchData();
   }, []);
 
@@ -30,7 +26,6 @@ const BandsListPage = () => {
 
   return (
     <div className="container mx-auto p-4">
-      {/* Add a search bar */}
       <div className="mb-4">
         <input
           type="text"
@@ -55,13 +50,19 @@ const BandsListPage = () => {
                 alt=""
               />
               <div className="min-w-0 flex-auto">
-                <p className="text-sm font-semibold leading-6 text-gray-900">{band.name}</p>
-                <p className="mt-1 truncate text-xs leading-5 text-gray-500">{band.album}</p>
+                <p className="text-sm font-semibold leading-6 text-gray-900">
+                  {band.name}
+                </p>
+                <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+                  {band.album}
+                </p>
               </div>
             </Link>
             {/* Additional information as needed */}
             <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-              <p className="text-sm leading-6 text-gray-900">{band.additionalInfo}</p>
+              <p className="text-sm leading-6 text-gray-900">
+                {band.additionalInfo}
+              </p>
             </div>
           </li>
         ))}

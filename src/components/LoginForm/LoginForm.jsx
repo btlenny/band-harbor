@@ -9,19 +9,14 @@ export default function LoginForm({ setUser }) {
   });
   const [error, setError] = useState("");
   const navigate = useNavigate();
-
   function handleChange(evt) {
     setCredentials({ ...credentials, [evt.target.name]: evt.target.value });
     setError("");
   }
 
   async function handleSubmit(evt) {
-    // Prevent form from being submitted to the server
     evt.preventDefault();
     try {
-      // The promise returned by the signUp service method
-      // will resolve to the user object included in the
-      // payload of the JSON Web Token (JWT)
       const user = await usersService.login(credentials);
       setUser(user);
       navigate("/bands");
@@ -38,7 +33,6 @@ export default function LoginForm({ setUser }) {
           Sign in to your account
         </h2>
       </div>
-
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-6" autoComplete="off" onSubmit={handleSubmit}>
           <div>
@@ -58,10 +52,9 @@ export default function LoginForm({ setUser }) {
                 onChange={handleChange}
                 required
                 className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
+              />
             </div>
           </div>
-
           <div>
             <div className="flex items-center justify-between">
               <label
@@ -81,7 +74,7 @@ export default function LoginForm({ setUser }) {
                 onChange={handleChange}
                 required
                 className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
+              />
             </div>
           </div>
 

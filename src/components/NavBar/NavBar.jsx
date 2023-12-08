@@ -1,17 +1,14 @@
-import { Disclosure, } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-
+import { Disclosure } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const navigation = [
-  { name: 'Bands', href: '/bands', current: false },
-  { name: 'New Band', href: '/bands/new', current: false },
-  { name: 'Log Out', href: '/', current: false},
-
- 
-]
+  { name: "Bands", href: "/bands", current: false },
+  { name: "New Band", href: "/bands/new", current: false },
+  { name: "Log Out", href: "/", current: false },
+];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 export default function Example() {
@@ -37,22 +34,24 @@ export default function Example() {
                 <div className="flex flex-shrink-0 items-center">
                   <img
                     className="h-8 w-auto"
-                    src={process.env.PUBLIC_URL + '/bandharborlogo.svg'}
+                    src={process.env.PUBLIC_URL + "/bandharborlogo.svg"}
                     alt="Your Company"
                   />
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
-                        <a
+                      <a
                         key={item.name}
                         href={item.href}
                         className={classNames(
-                          item.current ? 'bg-gray-900 text-white' : 'text-sky-100 hover:bg-gray-700 hover:text-white',
-                          item.name === 'Log Out' && 'bg-red-300', // Replace 'bg-red-500' with your desired color
-                          'rounded-md px-3 py-2 text-sm font-medium'
+                          item.current
+                            ? "bg-gray-900 text-white"
+                            : "text-sky-100 hover:bg-gray-700 hover:text-white",
+                          item.name === "Log Out" && "bg-red-300", // Replace 'bg-red-500' with your desired color
+                          "rounded-md px-3 py-2 text-sm font-medium"
                         )}
-                        aria-current={item.current ? 'page' : undefined}
+                        aria-current={item.current ? "page" : undefined}
                       >
                         {item.name}
                       </a>
@@ -62,7 +61,6 @@ export default function Example() {
               </div>
             </div>
           </div>
-
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2">
               {navigation.map((item) => (
@@ -71,10 +69,12 @@ export default function Example() {
                   as="a"
                   href={item.href}
                   className={classNames(
-                    item.current ? 'bg-gray-900 text-white' : 'text-sky-100 hover:bg-gray-700 hover:text-white',
-                    'block rounded-md px-3 py-2 text-base font-medium'
+                    item.current
+                      ? "bg-gray-900 text-white"
+                      : "text-sky-100 hover:bg-gray-700 hover:text-white",
+                    "block rounded-md px-3 py-2 text-base font-medium"
                   )}
-                  aria-current={item.current ? 'page' : undefined}
+                  aria-current={item.current ? "page" : undefined}
                 >
                   {item.name}
                 </Disclosure.Button>
@@ -84,5 +84,5 @@ export default function Example() {
         </>
       )}
     </Disclosure>
-  )
+  );
 }

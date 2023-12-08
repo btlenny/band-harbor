@@ -15,44 +15,29 @@ const BandDetailPage = ({ currentuser }) => {
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const [commentAdded, setCommentAdded] = useState(false);
-  console.log(comments);
   useEffect(() => {
     const fetchBandDetailsAndComments = async () => {
       try {
         const bandData = await getBandById(bandId);
         setBand(bandData);
-        console.log("Fetched band details:", bandData);
-
         const bandComments = await getAllComments(bandId);
         setComments(bandComments);
-        console.log("Fetched band comments:", bandComments);
       } catch (error) {
         console.error("Error fetching band details or comments:", error);
       }
     };
-
-    // Fetch band details and comments when the component mounts
     fetchBandDetailsAndComments();
   }, [bandId, commentAdded]);
 
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
-
-    console.log("bandId:", bandId);
-    console.log("comment:", comment);
-
     const commentData = { comment };
-
     try {
       const response = await createComment(bandId, commentData);
-
-      console.log("Full Response:", response);
-
       setComments((prevComments) => [
         ...prevComments,
         { id: prevComments.length + 1, text: comment },
       ]);
-
       setCommentAdded((prev) => !prev); // Toggle the dummy state
       setComment("");
     } catch (error) {
@@ -63,14 +48,7 @@ const BandDetailPage = ({ currentuser }) => {
 
   const handleUpdateComment = async (commentId, newText) => {
     try {
-      console.log("Updating comment...");
-
-      console.log("commentId:", commentId);
-      console.log("newText:", newText);
-
       const response = await updateComment(commentId, { text: newText }); // Corrected parameter
-      console.log("Update Comment Response:", response);
-
       setComments((prevComments) =>
         prevComments.map((comment) =>
           comment._id === commentId ? { ...comment, comment: newText } : comment
@@ -97,7 +75,6 @@ const BandDetailPage = ({ currentuser }) => {
       alert("Error deleting comment. Please try again.");
     }
   };
-
   if (!band) {
     return <div>Loading...</div>;
   }
@@ -117,7 +94,6 @@ const BandDetailPage = ({ currentuser }) => {
             <p className="mb-4">{band.album}</p>
           </div>
         </div>
-
         <div className="mx-auto p-10 w-3/4">
           <form
             onSubmit={handleCommentSubmit}
@@ -145,7 +121,6 @@ const BandDetailPage = ({ currentuser }) => {
           </form>
         </div>
       </div>
-
       <BandRec
         comments={comments}
         updateComment={handleUpdateComment}

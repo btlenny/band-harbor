@@ -8,12 +8,9 @@ export default function BandRec({
   currentuser
 }) {
   return (
-    
     <div className="">
       <h1 class="mb-4 font-bold leading-none tracking-tight text-gray-900 md:text-xl lg:text-xl dark:text-white underline underline-offset-3 decoration-8 decoration-blue-400 dark:decoration-blue-600">User Recommendations</h1>
       <ul role="list" className="divide-y divide-gray-200">
-        {console.log("Comments:", comments.comment)}
-        {console.log("Current User:", currentuser)}
         {comments.map((comment) => (
           <RecItem
             key={comment._id}
@@ -22,7 +19,6 @@ export default function BandRec({
             deleteComment={deleteComment}
             currentuser={currentuser}
             comments={comments}
-            // Pass the handleUpdateComment and handleDeleteComment functions here
           />
         ))}
       </ul>
