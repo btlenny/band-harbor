@@ -1,6 +1,8 @@
 import { Component } from 'react';
 import { signUp } from '../../utilities/users-service';
 
+
+
 export default class SignUpForm extends Component {
   state = {
     name: '',
@@ -9,7 +11,8 @@ export default class SignUpForm extends Component {
     confirm: '',
     error: ''
   };
-
+  
+  
   handleChange = (evt) => {
     this.setState({
       [evt.target.name]: evt.target.value,
@@ -19,18 +22,22 @@ export default class SignUpForm extends Component {
 
   handleSubmit = async (evt) => {
     evt.preventDefault();
+
     try {
       const { name, email, password } = this.state;
       const formData = { name, email, password };
       const user = await signUp(formData);
       console.log(this.props)
       this.props.setUser(user);
+      this.setState({ successMessage: 'Successfully signed up! Click Log In below to access your account' });
     } catch {
       this.setState({ error: 'Sign Up Failed - Try Again' });
     }
+    
   };
 
   render() {
+  
     const disable = this.state.password !== this.state.confirm;
     return (
       <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -72,6 +79,9 @@ export default class SignUpForm extends Component {
               <button type="submit" className="flex mx-auto  justify-center rounded-md bg-sky-300 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-sky-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign up</button>
             </div>
           </form>
+          {this.state.successMessage && (
+            <p className="success-message mt-2">{this.state.successMessage}</p>
+          )}
 
           <p className="error-message mt-2">{this.state.error}</p>
         </div>

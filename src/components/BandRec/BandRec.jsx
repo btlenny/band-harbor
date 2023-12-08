@@ -1,24 +1,31 @@
-import React from 'react'
-import RecItem from '../RecItem/RecItem'
+import React from "react";
+import RecItem from "../RecItem/RecItem";
 
-export default function BandRec({comments, updateComment, deleteComment, username}) {
+export default function BandRec({
+  comments,
+  updateComment,
+  deleteComment,
+  currentuser
+}) {
   return (
-    <div className=" bg-gray-50">
-   
-  
-    <ul role="list" className="divide-y divide-gray-200">
-
-      {console.log('Comments:', comments)}
-      {comments.map((comment) => (
-        <RecItem
-          key={comment._id}
-          comment={comment}
-          updateComment={updateComment}
+    
+    <div className="">
+      <h1 class="mb-4 font-bold leading-none tracking-tight text-gray-900 md:text-xl lg:text-xl dark:text-white underline underline-offset-3 decoration-8 decoration-blue-400 dark:decoration-blue-600">User Recommendations</h1>
+      <ul role="list" className="divide-y divide-gray-200">
+        {console.log("Comments:", comments.comment)}
+        {console.log("Current User:", currentuser)}
+        {comments.map((comment) => (
+          <RecItem
+            key={comment._id}
+            comment={comment}
+            updateComment={updateComment}
             deleteComment={deleteComment}
-          // Pass the handleUpdateComment and handleDeleteComment functions here
-        />
-      ))}
-    </ul>
-  </div>
-  )
+            currentuser={currentuser}
+            comments={comments}
+            // Pass the handleUpdateComment and handleDeleteComment functions here
+          />
+        ))}
+      </ul>
+    </div>
+  );
 }

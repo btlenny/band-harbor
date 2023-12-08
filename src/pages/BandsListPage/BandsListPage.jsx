@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { getAllBands } from '../../utilities/bands-api';
 import { Link } from 'react-router-dom';
+import './BandsListPage.css';
+
 
 const BandsListPage = () => {
   const [bands, setBands] = useState([]);
@@ -40,8 +42,11 @@ const BandsListPage = () => {
       </div>
 
       <ul role="list" className="divide-y divide-gray-100">
-        {filteredBands.map((band) => (
-          <li key={band._id} className="flex justify-between gap-x-6 py-5">
+        {filteredBands.map((band, index) => (
+          <li
+            key={band._id}
+            className={`flex justify-between gap-x-6 py-5 fadeInDown`}
+          >
             {/* Wrap the entire list item with a Link component */}
             <Link to={`/bands/${band._id}`} className="flex min-w-0 gap-x-4">
               <img

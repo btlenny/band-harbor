@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-export default function RecItem({ comment, updateComment, deleteComment, username }) {
+export default function RecItem({
+  comment,
+  updateComment,
+  deleteComment,
+  currentuser,
+  comments,
+}) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedText, setEditedText] = useState(comment.comment);
 
+  const isCurrentUserComment = currentuser._id === comment.user;
+  console.log(isCurrentUserComment);
   const handleUpdateComment = (commentId, newText) => {
     updateComment(commentId, newText);
     setIsEditing(false);
@@ -18,12 +26,12 @@ export default function RecItem({ comment, updateComment, deleteComment, usernam
   };
 
   const handleDeleteClick = () => {
-    if (window.confirm('Are you sure you want to delete this comment?')) {
+    if (window.confirm("Are you sure you want to delete this comment?")) {
       handleDeleteComment(comment._id);
     }
   };
 
- return (
+  return (
     <ul role="list" className="divide-y divide-gray-100">
       <li key={comment._id} className="py-5">
         {isEditing ? (
@@ -40,7 +48,11 @@ export default function RecItem({ comment, updateComment, deleteComment, usernam
               className="w-full p-2 border border-gray-300 rounded"
             />
             <div className="mt-2 flex items-center">
-              <button type="submit" className="text-sm text-blue-500 hover:underline cursor-pointer">
+              <button
+                type="submit"
+                className="text-sm text-blue-500 hover:underline cursor-pointer"
+                disabled={!isCurrentUserComment} // Disable if not the current user's comment
+              >
                 Confirm Update
               </button>
               <button
@@ -53,30 +65,36 @@ export default function RecItem({ comment, updateComment, deleteComment, usernam
             </div>
           </form>
         ) : (
-          <div className="comment-text-box p-7 rounded text-sm text-left">
-            {comment.comment}
+          <div>
+            <div className="comment-text-box p-7 rounded text-sm text-left">
+              {comment.comment}
+            </div>
+            <div className="text-right  italic text-xs text-gray-500 pr-5">
+              By {comment.userName}
+            </div>
           </div>
         )}
 
         <div className="mt-2 flex items-center">
-          <button
-            onClick={handleUpdateClick}
-            className="text-sm text-blue-500 hover:underline cursor-pointer pl-10"
-          >
-            Update
-          </button>
-          <button
-            onClick={handleDeleteClick}
-            className="text-sm text-red-500 hover:underline cursor-pointer pl-2"
-          >
-            Delete
-          </button>
+          {isCurrentUserComment && (
+            <button
+              onClick={handleUpdateClick}
+              className="text-sm text-blue-500 hover:underline cursor-pointer pl-10"
+            >
+              Update
+            </button>
+          )}
+          {isCurrentUserComment && (
+            <button
+              onClick={handleDeleteClick}
+              className="text-sm text-red-500 hover:underline cursor-pointer pl-2"
+            >
+              Delete
+            </button>
+          )}
         </div>
-        <div className="text-xs text-right text-gray-500 pr-5">
-          by {username}
-        </div>
+        <div className="text-xs text-right text-gray-500 pr-10"></div>
       </li>
-    
     </ul>
   );
 }
