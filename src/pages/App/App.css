@@ -3,7 +3,12 @@
 @tailwind utilities;
 
 
+.App {
+  
 
+  background-size: cover;
+background-position: center;
+}
 
 
 
